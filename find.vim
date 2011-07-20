@@ -22,17 +22,15 @@ endif
 let g:file_finder = 1
 
 " s:List_buffers
-" Return a list of the file name of all the current listed buffers.
+" Return a list of the file names of all the current listed buffers.
 "
 function! s:List_buffers()
   let buffer_names = []
-  let i = 1
-  while i <= bufnr('$')
+  for i in range(1, bufnr('$'))
     if (bufexists(i) && buflisted(i))
       call extend(buffer_names, [ bufname(i) ])
     endif
-    let i = i + 1
-  endwhile
+  endfor
   return buffer_names
 endfunc
 
@@ -46,8 +44,7 @@ function! s:Fd_Finder(ArgLead, CmdLine, CursorPos)
   endif
   let files = []
   " Search through the currently loaded buffers first.
-  let buffers = s:List_buffers()
-  for buffer in buffers
+  for buffer in s:List_buffers()
     if buffer =~ a:ArgLead 
       call extend(files, [ buffer ])
     endif
@@ -63,12 +60,11 @@ function! s:Fd_Finder(ArgLead, CmdLine, CursorPos)
   endfor
   let matching = "**/*".a:ArgLead."*"
   let possible_files = expand(matching)
-  " If a buffer name exists in the file name.
-  " Doco says that expand returns empty string if the expand doesn't match
-  " but expand returns the expression used to match again instead.
+  " if matching doesn't expand into anything then matching will equal
+  " possible_files, i.e. expand returns the pattern if nothing matches.
   if possible_files != matching
-    " Hash the possible file names.
     for file in split(possible_files,"\n")
+      " add file to the files list if the file isn't already loaded
       if !has_key(buffer_names_hash, file)
         call extend(files, [ file ])
       endif
@@ -100,5 +96,3 @@ function! s:Fd_Finding(filename)
 endfunc
 
 command! -nargs=1 -complete=customlist,s:Fd_Finder Find call s:Fd_Finding(<q-args>)
-"echo s:Fd_Finder("find","","")
-" for help see find.txt
