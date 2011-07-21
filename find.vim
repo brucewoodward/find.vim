@@ -1,7 +1,6 @@
 " Vim plugin to find files and buffers similar to textmate.
-" Last Change:	2007 Jun 22
 " Maintainer:	Bruce Woodward <bruce.woodward@gmail.com>
-" License:	Same license as vim
+" License:	Public domain
 "
 
 
