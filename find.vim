@@ -35,8 +35,9 @@ function! s:List_buffers()
 endfunc
 
 " s:Fd_Finder
-" Find ArgLead in the list of file name of the currently loaded buffers
-" and then all directories before the current.
+" Find buffers and files that match ArgLead.
+" Subdirectories are searched. Ensure no duplication between files and
+" buffers.
 "
 function! s:Fd_Finder(ArgLead, CmdLine, CursorPos)
   if a:ArgLead == ""
