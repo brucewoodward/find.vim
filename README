@@ -19,15 +19,6 @@ buffers/files and hit enter to edit/jump to the desire buffer/file.
 
 * Regular expressions are not supported.
 
-* File name wildcards are supported.
-
-The user can put an asterix in the search pattern, e.g.
-
-:Fi ap*mo*Us
-
-Will match app/model/User.rb is such a file structure existed under the
-current directory.
-
 * Subdirectory searching.
 
 Each time the Find function is called the current directory and subdirectory
